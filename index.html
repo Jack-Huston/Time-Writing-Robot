@@ -67,16 +67,7 @@
       <h2 class="section-title">Project Overview</h2>
 
       <div class="overview-grid">
-        <div class="overview-image-container">
-          <video class="overview-image"
-                 src="scara-demo.mp4"
-                 autoplay muted loop playsinline controls
-                 poster="scara-demo-cover.jpg">
-            Sorry, your browser doesn't support embedded videos.
-          </video>
-          <div class="image-caption">Live demo: the arm erases the old time, writes the new time, and waits.</div>
-        </div>
-
+        <!-- Text Column -->
         <div class="overview-content">
           <div>
             <h3 class="overview-heading">What I Built</h3>
@@ -101,21 +92,22 @@
             </p>
           </div>
         </div>
-      </div>
 
-      <!-- Additional demo videos -->
-      <div class="video-grid">
-        <div class="video-item">
-          <video class="overview-image" src="demonstration-video-1.MOV" autoplay muted loop playsinline controls>
-            Sorry, your browser doesn't support embedded videos.
-          </video>
-          <div class="image-caption">Demonstration video 1</div>
-        </div>
-        <div class="video-item">
-          <video class="overview-image" src="demonstration-video-2.mov" autoplay muted loop playsinline controls>
-            Sorry, your browser doesn't support embedded videos.
-          </video>
-          <div class="image-caption">Demonstration video 2</div>
+        <!-- Videos Column (stacked vertically) -->
+        <div>
+          <div class="overview-image-container">
+            <video class="overview-image" src="demonstration-video-1.MOV" autoplay muted loop playsinline controls>
+              Sorry, your browser doesn't support embedded videos.
+            </video>
+            <div class="image-caption">Demonstration Video #1</div>
+          </div>
+
+          <div class="overview-image-container" style="margin-top:1rem;">
+            <video class="overview-image" src="demonstration-video-2.MOV" autoplay muted loop playsinline controls>
+              Sorry, your browser doesn't support embedded videos.
+            </video>
+            <div class="image-caption">Demonstration Video #2</div>
+          </div>
         </div>
       </div>
 
@@ -149,7 +141,6 @@
             <code>PEN UP/DOWN</code>, <code>GO HOME</code>), interpolated segments, and scheduled servo motion.
           </p>
 
-          <!-- Brief note about the inverse kinematic test simulator -->
           <p class="detail-text">
             I also built a quick inverse-kinematic test simulator to visualize reachability and check joint limits before running the servos.
             It let me scrub through target points, confirm valid angle pairs, and avoid elbow configurations that would clip the board or bind the linkage.
@@ -158,11 +149,6 @@
           <div class="centered-media">
             <img src="scara-inverse-kinematic-simulator.jpg" alt="Inverse kinematic test simulator visualization" loading="lazy"/>
             <div class="image-caption">Inverse-kinematic test simulator used to validate reachable poses and angle limits.</div>
-          </div>
-
-          <div class="centered-media">
-            <img src="scara-coordinates-example.jpg" alt="Example of coordinate mapping and command stream" loading="lazy"/>
-            <div class="image-caption">Coordinate path & simple command stream used to write digits.</div>
           </div>
 
           <div class="centered-media">
@@ -187,7 +173,7 @@
             Standard hobby servos driven by an IoT connected Arduino. A basic driver board powered the servos; the marker plunger servo and two arm controls driven by the Arduino servo library. 
           </p>
           <div class="centered-media">
-            <img src="scara-circuit-scematic.png" alt="SCARA robot electrical schematic for servo control and Arduino wiring" loading="lazy"/>
+            <img src="scara-circuit-schematic.png" alt="SCARA robot electrical schematic for servo control and Arduino wiring" loading="lazy"/>
             <div class="image-caption">Electronics Schematic</div>
           </div>
         </div>
@@ -273,6 +259,6 @@
     });
 
     setTimeout(() => lucide.createIcons(), 100);
-    </script>
+  </script>
 </body>
 </html>
