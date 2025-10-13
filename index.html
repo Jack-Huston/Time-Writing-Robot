@@ -51,7 +51,7 @@
       </div>
       <h1 class="project-hero-title">SCARA Robot Writing Clock</h1>
       <p class="project-hero-subtitle">
-        A servo-driven SCARA arm that wrote (and erased) the current time on a whiteboard once per minute — scrappy, but it worked.
+        A servo-driven SCARA style robotic arm that wrote (and erased) the current time on a whiteboard once per minute — Super scrappy, but it worked.
       </p>
       <div class="project-meta">
         <div class="meta-item"><i data-lucide="calendar"></i><span>2019</span></div>
@@ -82,26 +82,40 @@
             <h3 class="overview-heading">What I Built</h3>
             <p class="overview-text">
               A two-link SCARA-style robot made from whatever I could find: a scrap wood base,
-              tape, and aluminum bar stock pulled from the trash. A dry-erase marker sat in a simple plunger
-              that could pick up the eraser, wipe the board, then write the next minute’s time.
+              tape, and aluminum bar stock pulled from the trash. A dry-erase marker sat in a simple plunger (pulled from a broken linear actuator and taped in place)
+              that could pick up the eraser, wipe the board clean, then write the next minute’s time.
             </p>
           </div>
 
           <div>
-            <h3 class="overview-heading">Why It’s Here</h3>
+            <h3 class="overview-heading">Why Is This Here</h3>
             <p class="overview-text">
-              This isn’t a showcase of refined engineering — it’s proof that scrappy systems, a bit of math,
-              and stubbornness can produce delightful results. I wrote my own inverse kinematics and a mini
-              “G-code” to command XY coordinates, then streamed paths to draw digits reliably.
+              This is not a showcase of refined engineering, or what I am at all capable of doing now. This was long before I learned to engineer, 3D model, design components, and is more a testiment that stubbornness and grit, and access to some tape and scrap materials, can produce some cool results.
             </p>
           </div>
 
           <div class="scrappy-callout">
             <i data-lucide="hammer" aria-hidden="true"></i>
             <p>
-              Built before I knew CAD or 3D printing. I’m not ashamed — it shipped (to my dorm wall).
+              Built before I knew CAD or 3D printing. I’m not ashamed of how it looks — it worked.
             </p>
           </div>
+        </div>
+      </div>
+
+      <!-- Additional demo videos -->
+      <div class="video-grid">
+        <div class="video-item">
+          <video class="overview-image" src="demonstration-video-1.MOV" autoplay muted loop playsinline controls>
+            Sorry, your browser doesn't support embedded videos.
+          </video>
+          <div class="image-caption">Demonstration video 1</div>
+        </div>
+        <div class="video-item">
+          <video class="overview-image" src="demonstration-video-2.mov" autoplay muted loop playsinline controls>
+            Sorry, your browser doesn't support embedded videos.
+          </video>
+          <div class="image-caption">Demonstration video 2</div>
         </div>
       </div>
 
@@ -110,9 +124,9 @@
         <div class="tech-tags">
           <span class="tech-tag">C++ (Arduino)</span>
           <span class="tech-tag">Inverse Kinematics</span>
-          <span class="tech-tag">Custom “G-code”</span>
-          <span class="tech-tag">Servos</span>
-          <span class="tech-tag">Whiteboard Mechanics</span>
+          <span class="tech-tag">Manufacturing</span>
+          <span class="tech-tag">Electronics</span>
+          <span class="tech-tag">Basic Control Systems</span>
         </div>
       </div>
     </div>
@@ -131,12 +145,34 @@
           <h3 class="detail-title">Control & Kinematics</h3>
           <p class="detail-text">
             I implemented planar 2-link inverse kinematics for a SCARA layout to convert XY targets
-            into shoulder/elbow servo angles. A tiny parser accepted lines of my “G-code” (e.g., <code>MOVE X,Y</code>,
-            <code>PEN UP/DOWN</code>, <code>ERASE</code>), interpolated segments, and scheduled servo motion.
+            into shoulder/elbow servo angles. A tiny parser accepted lines of my “G-code” (e.g., <code>GO TO COORDINATE X, Y</code>,
+            <code>PEN UP/DOWN</code>, <code>GO HOME</code>), interpolated segments, and scheduled servo motion.
           </p>
+
+          <!-- Brief note about the inverse kinematic test simulator -->
+          <p class="detail-text">
+            I also built a quick inverse-kinematic test simulator to visualize reachability and check joint limits before running the servos.
+            It let me scrub through target points, confirm valid angle pairs, and avoid elbow configurations that would clip the board or bind the linkage.
+          </p>
+
+          <div class="centered-media">
+            <img src="scara-inverse-kinematic-simulator.jpg" alt="Inverse kinematic test simulator visualization" loading="lazy"/>
+            <div class="image-caption">Inverse-kinematic test simulator used to validate reachable poses and angle limits.</div>
+          </div>
+
           <div class="centered-media">
             <img src="scara-coordinates-example.jpg" alt="Example of coordinate mapping and command stream" loading="lazy"/>
             <div class="image-caption">Coordinate path & simple command stream used to write digits.</div>
+          </div>
+
+          <div class="centered-media">
+            <img src="scara-robot-coordinates.png" alt="Coordinates used for drawing each number" loading="lazy"/>
+            <div class="image-caption">Coordinate sets for each digit used by the custom command stream.</div>
+          </div>
+
+          <div class="centered-media">
+            <img src="scara-robot-coordinate-calculation.jpg" alt="Coordinate conversion method and notes" loading="lazy"/>
+            <div class="image-caption">Coordinate conversion method for mapping whiteboard positions to SCARA joint angles.</div>
           </div>
         </div>
       </div>
@@ -146,14 +182,13 @@
           <i data-lucide="cpu" class="detail-icon"></i>
         </div>
         <div class="detail-content">
-          <h3 class="detail-title">Electronics (Very Simple)</h3>
+          <h3 class="detail-title">Electronics</h3>
           <p class="detail-text">
-            Standard hobby servos driven by an Arduino. A basic driver board powered the servos; the marker plunger
-            shared the same control loop. Nothing fancy — just reliable timing and careful movement limits.
+            Standard hobby servos driven by an IoT connected Arduino. A basic driver board powered the servos; the marker plunger servo and two arm controls driven by the Arduino servo library. 
           </p>
           <div class="centered-media">
-            <img src="scara-schematic.jpg" alt="Electrical schematic for servo control and Arduino wiring" loading="lazy"/>
-            <div class="image-caption">Minimal servo control schematic — keep timing clean and power rails happy.</div>
+            <img src="scara-circuit-scematic.png" alt="SCARA robot electrical schematic for servo control and Arduino wiring" loading="lazy"/>
+            <div class="image-caption">Electronics Schematic</div>
           </div>
         </div>
       </div>
@@ -168,14 +203,13 @@
       <div class="results-content">
         <h3 class="results-heading">What Worked</h3>
         <p class="results-text">
-          It reliably erased and rewrote the time every minute. The inverse kinematics were stable,
+          It (mostly) reliably erased and rewrote the time every minute. The inverse kinematics were reasonably stable,
           and the ad-hoc “G-code” made it easy to author digit strokes and erasing paths.
         </p>
 
         <h3 class="results-heading">What I’d Improve Now</h3>
         <p class="results-text">
-          Real linkages, a proper end-effector, closed-loop feedback, and a sane mechanical stackup.
-          Also: parametric CAD, 3D-printed fixtures, and limit switches so it can home without drama.
+          Where to begin... Real linkages, a proper end-effector, closed-loop feedback, and a sane mechanical/tolerance stackup. There is much that could be improved, but the basic demonstrated prototype is there.
         </p>
       </div>
     </div>
@@ -239,6 +273,6 @@
     });
 
     setTimeout(() => lucide.createIcons(), 100);
-  </script>
+    </script>
 </body>
 </html>
