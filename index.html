@@ -147,8 +147,16 @@
           </p>
 
           <div class="centered-media">
-            <img src="simulation-functioning.gif" alt="Inverse kinematic test simulator visualization" loading="lazy"/>
+            <!-- Force eager load and ensure animation by resetting src on load via JS -->
+            <img id="ikGif" src="simulation-functioning.gif" alt="Inverse kinematic test simulator visualization" loading="eager" decoding="async"/>
             <div class="image-caption">Inverse-kinematic test simulator used to validate reachable poses and angle limits.</div>
+          </div>
+
+          <div class="centered-media" style="margin-top:.5rem;">
+            <a class="try-button" href="https://editor.p5js.org/jackh134/full/2V2150sHt" target="_blank" rel="noopener noreferrer">
+              <i data-lucide="external-link"></i>
+              <span>Try it for yourself</span>
+            </a>
           </div>
 
           <div class="centered-media">
@@ -201,25 +209,41 @@
     </div>
   </section>
 
-  <!-- Call to Action (identical) -->
-  <section class="section cta-section">
-    <div class="container">
-      <h2 class="cta-title">Interested in Learning More?</h2>
-      <p class="cta-text">I'd be happy to discuss this project in detail or explore career opportunities.</p>
-      <div class="cta-buttons">
-        <a href="mailto:jackthuston1@gmail.com" class="btn-cta-primary">
-          <i data-lucide="mail"></i>
-          <span>Get in Touch</span>
-        </a>
+  <!-- Contact / CTA (shared) -->
+  <section id="contact" class="section contact-section">
+    <div class="contact-glow"></div>
+    <div class="container contact-container">
+      <h2 class="section-title contact-title">Let's Connect</h2>
+      <p class="contact-subtitle">
+        I'd be happy to discuss my experience in more detail or explore potential career opportunities.
+      </p>
+      <div class="contact-links">
         <a href="https://jack-huston.github.io/#projects" class="btn-cta-secondary">
           <i data-lucide="arrow-left"></i>
           <span>View Other Projects</span>
+        </a>
+
+        <!-- Prefilled mailto; JS copies email & shows toast, then opens -->
+        <a
+          id="emailLink"
+          class="contact-card"
+          href="mailto:jackthuston1@gmail.com?subject=Contact%20via%20Portfolio%20Website&body=Hi%20Jack,%0D%0A%0D%0A"
+          data-email="jackthuston1@gmail.com"
+          data-mailto="mailto:jackthuston1@gmail.com?subject=Contact%20via%20Portfolio%20Website&body=Hi%20Jack,%0D%0A%0D%0A"
+        >
+          <i data-lucide="mail" class="icon-contact"></i>
+          <span>Email Me</span>
+        </a>
+
+        <a href="https://www.linkedin.com/in/jack-huston/" target="_blank" rel="noopener noreferrer" class="contact-card">
+          <i data-lucide="linkedin" class="icon-contact"></i>
+          <span>LinkedIn</span>
         </a>
       </div>
     </div>
   </section>
 
-  <!-- Footer (identical) -->
+  <!-- Footer -->
   <footer class="footer">
     <div class="footer-content">
       <span>© 2025 Jack Huston.</span>
@@ -228,9 +252,14 @@
     </div>
   </footer>
 
+  <!-- Copy toast -->
+  <div class="toast" id="copyToast" aria-live="polite">Copied to Clipboard</div>
+
   <script>
+    // Icons
     lucide.createIcons();
 
+    // Mobile menu
     const mobileMenuBtn = document.getElementById('mobileMenuBtn');
     const mobileMenu    = document.getElementById('mobileMenu');
     const menuIcon      = document.getElementById('menuIcon');
@@ -251,12 +280,50 @@
       });
     });
 
+    // Navbar background on scroll
     window.addEventListener('scroll', () => {
       const navbar = document.querySelector('.navbar');
       navbar.style.backgroundColor = window.scrollY > 50
         ? 'rgba(255, 255, 255, 0.98)'
         : 'rgba(255, 255, 255, 0.95)';
     });
+
+    // Ensure GIF animates on load: reset the src once the page is ready
+    window.addEventListener('DOMContentLoaded', () => {
+      const gif = document.getElementById('ikGif');
+      if (gif && gif.tagName === 'IMG') {
+        const src = gif.getAttribute('src');
+        // Briefly clear then restore the src to kickstart animation (avoids some browsers pausing cached GIFs)
+        gif.setAttribute('src', '');
+        gif.setAttribute('src', src);
+      }
+    });
+
+    // --- Email CTA: copy email + toast + open mail client ---
+    const emailLink = document.getElementById('emailLink');
+    const copyToast = document.getElementById('copyToast');
+
+    function showToast() {
+      copyToast.classList.add('show');
+      setTimeout(() => copyToast.classList.remove('show'), 1800);
+    }
+
+    if (emailLink) {
+      emailLink.addEventListener('click', async (e) => {
+        e.preventDefault();
+        const email = emailLink.dataset.email || 'jackthuston1@gmail.com';
+        const mailtoHref = emailLink.dataset.mailto || emailLink.href;
+
+        try {
+          await navigator.clipboard.writeText(email);
+          showToast();
+        } catch (err) {
+          // If clipboard is blocked, continue gracefully.
+        }
+
+        window.location.href = mailtoHref;
+      });
+    }
 
     setTimeout(() => lucide.createIcons(), 100);
   </script>
