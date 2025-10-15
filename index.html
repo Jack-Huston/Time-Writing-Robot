@@ -148,15 +148,20 @@
 
           <div class="centered-media">
             <!-- Force eager load and ensure animation by resetting src on load via JS -->
-            <img id="ikGif" src="simulation-functioning.gif" alt="Inverse kinematic test simulator visualization" loading="eager" decoding="async"/>
-            <div class="image-caption">Inverse-kinematic test simulator used to validate reachable poses and angle limits.</div>
-          </div>
+            <video
+              id="ikVideo"
+              class="overview-image"
+              src="simulation-testing.mp4"
+              autoplay
+              muted
+              loop
+              playsinline
+              preload="metadata"
+            >
+              Sorry, your browser doesn't support embedded videos.
+            </video>
 
-          <div class="centered-media" style="margin-top:.5rem;">
-            <a class="try-button" href="https://editor.p5js.org/jackh134/full/2V2150sHt" target="_blank" rel="noopener noreferrer">
-              <i data-lucide="external-link"></i>
-              <span>Try it for yourself</span>
-            </a>
+            <div class="image-caption">Inverse-kinematic test simulator used to validate reachable poses and angle limits.</div>
           </div>
 
           <div class="centered-media">
